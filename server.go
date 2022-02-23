@@ -1,18 +1,21 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"golang-api-jwt/controllers"
+)
+
+var (
+	authController controllers.AuthController = controllers.NewAuthController()
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status":  "success",
-			"message": "Home",
-		})
-	})
-	r.Run(":5000")
+	router := gin.Default()
+
+	v1 := router.Group("/api/auth")
+	{
+		v1.POST("/login", authController.Login)
+		v1.POST("/register", authController.Register)
+	}
+	router.Run(":5000")
 }
