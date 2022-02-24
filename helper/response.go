@@ -26,7 +26,7 @@ func SendSuccessResponse(success bool, message string, data interface{}) Respons
 func SendErrorResponse(success bool, message string, err string, data interface{}) Response {
 	splitedError := strings.Split(err, "\n")
 	res := Response{
-		Success: false,
+		Success: success,
 		Message: message,
 		Error:   splitedError,
 		Data:    data,
