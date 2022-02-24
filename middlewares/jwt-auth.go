@@ -23,7 +23,7 @@ func AuthorizeJWT(jwtService services.JWTService) gin.HandlerFunc {
 			log.Println("Claim[issuer] :", claims["issuer"])
 		} else {
 			log.Println(err)
-			response := helper.SendErrorResponse(false, "Invalid token", err.Error(, nil)
+			response := helper.SendErrorResponse(false, "Invalid token", err.Error(), nil)
 			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 		}
 	}
