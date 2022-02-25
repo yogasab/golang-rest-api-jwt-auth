@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"golang-api-jwt/entity"
 	"log"
 	"os"
 
@@ -22,7 +23,10 @@ func SetupDatabaseConnection() *gorm.DB {
 
 	dsn := fmt.Sprintf("%s:@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbHost, dbPort, dbName)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	//db.AutoMigrate()
+	if err != nil {
+		panic("Failed to create a connection to database")
+	}
+	db.AutoMigrate(&entity.User{})
 	return db
 }
 

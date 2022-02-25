@@ -4,7 +4,6 @@ import (
 	"golang-api-jwt/entity"
 	"golang-api-jwt/helper"
 	"gorm.io/gorm"
-	"log"
 )
 
 type UserRepository interface {
@@ -46,11 +45,11 @@ func (db *userConnection) UpdateUser(user entity.User) entity.User {
 
 func (db *userConnection) VerifyCredentials(email string, password string) interface{} {
 	var user entity.User
-	result := db.connection.Where("email = ?", user.Email).Take(&user)
-	if result.Error != nil {
-		log.Fatal("Error")
+	result := db.connection.Where("email = ?", email).Take(&user)
+	if result.Error == nil {
+		return user
 	}
-	return result
+	return nil
 }
 
 func (db *userConnection) IsDuplicateEmail(email string) (tx *gorm.DB) {
