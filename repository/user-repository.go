@@ -36,7 +36,7 @@ func (db *userConnection) UpdateUser(user entity.User) entity.User {
 		user.Password, _ = helper.HashPassword(user.Password)
 	} else {
 		var temporaryUser entity.User
-		db.connection.Find(&user, temporaryUser.ID)
+		db.connection.Find(&temporaryUser, user.ID)
 		user.Password = temporaryUser.Password
 	}
 	db.connection.Save(&user)
@@ -65,6 +65,6 @@ func (db *userConnection) FindByEmail(email string) entity.User {
 
 func (db *userConnection) ProfileUser(userID string) entity.User {
 	var user entity.User
-	db.connection.Find(&user, user.ID)
+	db.connection.Find(&user, userID)
 	return user
 }
