@@ -14,7 +14,7 @@ func AuthorizeJWT(jwtService services.JWTService) gin.HandlerFunc {
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" {
 			response := helper.SendErrorResponse(false, "Failed to process request", "No token found", nil)
-			c.AbortWithStatusJSON(http.StatusBadRequest, response)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, response)
 			return
 		}
 		token, err := jwtService.VerifyToken(authHeader)

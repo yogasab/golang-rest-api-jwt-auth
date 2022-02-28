@@ -41,7 +41,7 @@ func (s *bookService) Insert(bookDTO dto.BookCreateDTO) entity.Book {
 
 func (s *bookService) Update(bookDTO dto.BookUpdateDTO) entity.Book {
 	book := entity.Book{}
-	err := smapping.FillStruct(&book, smapping.MapFields(bookDTO))
+	err := smapping.FillStruct(&book, smapping.MapFields(&bookDTO))
 	if err != nil {
 		log.Println("Error on BookService Update ", err)
 	}

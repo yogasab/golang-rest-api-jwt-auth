@@ -21,10 +21,16 @@ func NewBookRepository(db *gorm.DB) BookRepository {
 	return &bookConnection{connection: db}
 }
 
-func (db *bookConnection) InsertBook(book entity.Book) entity.Book {
-	db.connection.Save(&book)
-	db.connection.Preload("User").Find(&book)
-	return book
+//func (db *bookConnection) InsertBook(book entity.Book) entity.Book {
+//	db.connection.Save(&book)
+//	db.connection.Preload("User").Find(&book)
+//	return book
+//}
+
+func (db *bookConnection) InsertBook(b entity.Book) entity.Book {
+	db.connection.Save(&b)
+	db.connection.Preload("User").Find(&b)
+	return b
 }
 
 func (db *bookConnection) UpdateBook(book entity.Book) entity.Book {
